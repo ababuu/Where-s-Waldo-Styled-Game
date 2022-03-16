@@ -1,10 +1,12 @@
 import './App.css';
 import ButtonAppBar from './components/AppBar';
+import SpacingGrid from './components/SpacingGrid';
 
 function App() {
   return (
     <div className="App">
-      <ButtonAppBar/>
+      <ButtonAppBar runtimer={false}/>
+      <SpacingGrid/>
     </div>
   );
 }
