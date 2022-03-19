@@ -1,0 +1,7 @@
+.gird{
+    cursor: pointer;
+    width: 50%;
+    background: lightgray;
+    margin:3px;
+    position: relative
+}

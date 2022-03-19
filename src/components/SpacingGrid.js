@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 import Lev3 from './level_3.jpg';
 import Lev1 from './level_1.jpg';
 import Lev2 from './level 2.jpg';
+import Lev4 from './level4.jpeg';
+import './SpacingGrid.css';
 
 export default function SpacingGrid() {
     const SX_Grid={
@@ -12,7 +14,8 @@ export default function SpacingGrid() {
         width: 500,
         backgroundColor: 'lightgray',
         margin:3,
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
         };
     const SX_text={
         position:'absolute',
@@ -41,12 +44,11 @@ export default function SpacingGrid() {
     }
 return (
     <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-    <Grid item xs={12}>
+    <Grid item xs={12} >
         <Grid container justifyContent="center" spacing={2} sx={{ marginTop:0 }}>
-            <Grid key={1} id={1} item>
+            <Grid key={1} id={1}  item>
             <Paper 
                 id={1}
-                
                 sx={SX_Grid}
             >
                 <img src={Lev1} id={1} style={{width:'100%',borderRadius:'5px'}} onClick={handleClick}/>
@@ -77,7 +79,7 @@ return (
                 onClick={handleClick}
                 sx={SX_Grid}
             >
-                <h2 style={SX_text}>Level 4</h2>
+                <img src={Lev4} id={4} style={{width:'100%', height:'23.5em',borderRadius:'5px'}} onClick={handleClick}/>
             </Paper>
             </Grid>
         </Grid>

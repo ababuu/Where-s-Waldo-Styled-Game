@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Divider from '@mui/material/Divider';
 import MuiAlert from '@mui/material/Alert';
+import BasicModal from './Modal';
 
 
 export default function Common(props) {
@@ -25,7 +26,8 @@ export default function Common(props) {
     const [first, setfirst] = React.useState(false);
     const [second, setSecond] = React.useState(false);
     const [third, setThird] = React.useState(false);
-    let [charsToFInd, setCharsToFInd] = React.useState(2);
+    const [charsToFInd, setCharsToFInd] = React.useState(2);
+    let timeSec=0;
 
     const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -35,10 +37,11 @@ export default function Common(props) {
         top: `${y+60}px`,
         left: `${x+120}px`,
         transform: 'translate(-50%, -50%)',
-        width: '15em',
+        width: '13em',
         bgcolor: 'background.paper',
         p: 4,
         borderRadius: '10px',
+        outline: 'none',
         };
     const handleOpen = () => {
         setOpen(true)};
@@ -52,9 +55,9 @@ export default function Common(props) {
             sety(e.screenY);
         }
     };
-    const handleOpenAndSelection=(e)=>{
-        handleSelection(e);
+    const handlePauseAndSelection=(e)=>{
         handlePause();
+        handleSelection(e);
     }
     const handleClicked=(e)=>{
         setclicked(e.target.id);
@@ -65,27 +68,41 @@ export default function Common(props) {
     }
     const handleSelection=(e)=>{
         let selected=e.currentTarget.id;
+        if(charsToFInd==0){
+            handlePause();
+        }
         if(selected!=clicked || clicked==''){
             setErrorOpenSnack(true);
         }
         else if(selected==clicked){
             setOpenSuccessSnack(true);
+            setCharsToFInd(charsToFInd-1);
             if(selected=='spongeBob'){
                 setfirst(true);
-                setCharsToFInd(charsToFInd--);
-                localStorage.setItem('charsleft',charsToFInd);
             }
             else if(selected=='bobMarley'){
                 setSecond(true);
-                charsToFInd--;
-                setCharsToFInd(charsToFInd--);
-                localStorage.setItem('charsleft',charsToFInd);
             }
-            else{
+            else if(selected=='stewie'){
                 setThird(true);
-                charsToFInd--;
-                setCharsToFInd(charsToFInd--);
-                localStorage.setItem('charsleft',charsToFInd);
+            }
+            if(selected=='rick'){
+                setfirst(true);
+            }
+            else if(selected=='waldo'){
+                setSecond(true);
+            }
+            else if(selected=='jack'){
+                setThird(true);
+            }
+            if(selected=='saltBae'){
+                setfirst(true);
+            }
+            else if(selected=='babyGroot'){
+                setSecond(true);
+            }
+            else if(selected=='pickleRick'){
+                setThird(true);
             }
         }
         setclicked('');
@@ -140,29 +157,31 @@ export default function Common(props) {
         </IconButton>
         </React.Fragment>
     );
-    const [timer, setTimer] = React.useState(0)
-    const [isActive, setIsActive] = React.useState(true)
-    const [isPaused, setIsPaused] = React.useState(false)
-    const increment = React.useRef(null)
+    const [timer, setTimer] = React.useState(0);
+    const [isActive, setIsActive] = React.useState(true);
+    const [isPaused, setIsPaused] = React.useState(false);
+    const increment = React.useRef(null);
 
     
     const formatTime = () => {
-        const getSeconds = `0${(timer % 60)}`.slice(-2)
-        const minutes = `${Math.floor(timer / 60)}`
-        const getMinutes = `0${minutes % 60}`.slice(-2)
-        const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
-    
-        return `${getHours} : ${getMinutes} : ${getSeconds}`
+        const getSeconds = timer;
+        
+        if(charsToFInd<0){
+            timeSec=getSeconds;
+        }
+        return getSeconds;
     }
-    console.log(charsToFInd);
-    React.useEffect(() => {
-        handleStart();
-    }, [])
     
+    React.useEffect(() => {
+            handleStart();
+            if(charsToFInd<0){
+                timeSec=formatTime();
+            }
+    },[]);
 
 return (
     <div>
-        <ButtonAppBar runtimer={true}/>
+        <ButtonAppBar runtimer={true} showHomeButton={true}/>
         <h2 style={{fontWeight:'light',textAlign:'center',marginBottom:'1em'}}>{formatTime()}</h2>
         {openErrorSnack ?  <div>
             <Snackbar
@@ -189,7 +208,6 @@ return (
         </Snackbar>
     </div>: null}
     <div className='outer-container'>
-    
     <div className='container' style={{paddingLeft:'20px'}}>
         <div className='div1' id={props.id1} onClick={clickedFun} style={props.div1Style}></div>
         <div className='div2' id={props.id2} onClick={clickedFun} style={props.div2Style}></div>
@@ -205,7 +223,6 @@ return (
             style: {
             background: 'transparent',
             boxShadow: 'none',
-            
             },
         }}
         >
@@ -217,7 +234,7 @@ return (
             bgcolor: 'background.paper'
         }}
         >
-        <div onClick={charsToFInd ? (first ? null : handleSelection) : handleOpenAndSelection} id={props.id1}>
+        <div onClick={charsToFInd ? (first ? null : handleSelection) : handlePauseAndSelection} id={props.id1}>
         <ListItem  className={first ? 'listItem-after' : 'listItem-before'} >
             <ListItemAvatar>
             <Avatar>
@@ -228,7 +245,7 @@ return (
         </ListItem>
         </div>
         <Divider variant="inset" component="li" />
-        <div onClick={second ? null:handleSelection} id={props.id2}>
+        <div onClick={charsToFInd ? (second ? null : handleSelection) : handlePauseAndSelection} id={props.id2}>
         <ListItem className={second ? 'listItem-after' : 'listItem-before'}>
             <ListItemAvatar>
             <Avatar>
@@ -239,7 +256,7 @@ return (
         </ListItem>
         </div>
         <Divider variant="inset" component="li" />
-        <div onClick={third ? null:handleSelection} id={props.id3}>
+        <div onClick={charsToFInd ? (third ? null : handleSelection) : handlePauseAndSelection} id={props.id3}>
         <ListItem className={third ? 'listItem-after' : 'listItem-before'}>
             <ListItemAvatar>
             <Avatar>
@@ -255,23 +272,24 @@ return (
         : null}
     </div>
     <div style={{position:'relative',width:'25%'}}>
-    <div className='side-div'>
-        <h2 style={{marginBottom:'1em',padding:'1em'}}>Characters to Look For</h2>
+    <div className='side-div' style={{height:'100vh'}}>
+        <h2 style={{padding:'1em'}}>Characters to Look For</h2>
         <div className={first ? 'char1-after' : 'char1-before'}>
-            <img src={props.char1Src} style={{width:'40%'}}/>
-            <h3 style={{marginTop:'2.3em',padding:'1em'}}>{props.name1}</h3>
+            <img src={props.char1Src} style={{width:'70%'}}/>
+            <h3 style={{marginTop:'2.3em'}}>{props.name1}</h3>
         </div>
         <div className={second ? 'char2-after' : 'char2-before'}>
-            <img src={props.char2Src} style={{width:'40%'}}/>
+            <img src={props.char2Src} style={{width:'70%'}}/>
             <h3 style={{marginTop:'2.3em'}}>{props.name2}</h3>
         </div>
         <div className={third ? 'char3-after' : 'char3-before'}>
-            <img src={props.char3Src} style={{width:'40%'}}/>
-            <h3 style={{marginTop:'2.3em',padding:'1em'}}>{props.name3}</h3>
+            <img src={props.char3Src} style={{width:'70%'}}/>
+            <h3 style={{marginTop:'2.3em'}}>{props.name3}</h3>
         </div>
     </div>
     </div>
     </div>
+    {charsToFInd>=0 ? null: <BasicModal sec={timeSec} first={props.first} second={props.second} third={props.third}/>}
     </div>
 );
 }

@@ -33,12 +33,11 @@ const div3Style={
     left: '29%',
     cursor: 'pointer'
 }
-const characters=['spongeBob','bobMarley','stewie']
 export default function LevelOne() {
 
 return (
     <div>
-    <Common imageSrc={Lev1} char1Src={SpongeBob}  char2Src={BobMarley} char3Src={Stewie} div1Style={div1Style} div2Style={div2Style} div3Style={div3Style} id1={'spongeBob'} id2={'bobMarley'} id3={'stewie'} primary1={'SpongeBob'} primary2={'Bob Marley'} primary3={'Stewie'} name1={'SpongeBob'} name2={'Bob Marley'} name3={'Stewie'} characters={characters}/>
+    <Common imageSrc={Lev1} char1Src={SpongeBob}  char2Src={BobMarley} char3Src={Stewie} div1Style={div1Style} div2Style={div2Style} div3Style={div3Style} id1={'spongeBob'} id2={'bobMarley'} id3={'stewie'} primary1={'Sponge Bob'} primary2={'Bob Marley'} primary3={'Stewie'} name1={'Sponge Bob'} name2={'Bob Marley'} name3={'Stewie'} first={true}/>
     </div>
 );
 }
