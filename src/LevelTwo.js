@@ -35,11 +35,11 @@ const div3Style={
     cursor: 'pointer'
 }
 const characters=['spongeBob','bobMarley','stewie']
-export default function LevelOne() {
+export default function LevelTwo() {
 
 return (
     <div>
-    <Common imageSrc={Lev2} char1Src={Rick}  char2Src={Waldo} char3Src={Jack} div1Style={div1Style} div2Style={div2Style} div3Style={div3Style} id1={'rick'} id2={'waldo'} id3={'jack'} primary1={'Rick Sanchez'} primary2={'Waldo'} primary3={'Samurai Jack'} name1={'Rick Sanchez'} name2={'Waldo'} name3={'Samurai Jack'}  second={true}/>
+    <Common imageSrc={Lev2} char1Src={Rick}  char2Src={Waldo} char3Src={Jack} div1Style={div1Style} div2Style={div2Style} div3Style={div3Style} id1={'rick'} id2={'waldo'} id3={'jack'} primary1={'Rick Sanchez'} primary2={'Waldo'} primary3={'Samurai Jack'} name1={'Rick Sanchez'} name2={'Waldo'} name3={'Samurai Jack'}  second={true} level={'second'}/>
     </div>
 );
 }

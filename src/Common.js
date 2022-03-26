@@ -68,7 +68,7 @@ export default function Common(props) {
     }
     const handleSelection=(e)=>{
         let selected=e.currentTarget.id;
-        if(charsToFInd==0){
+        if(charsToFInd<0){
             handlePause();
         }
         if(selected!=clicked || clicked==''){
@@ -102,6 +102,15 @@ export default function Common(props) {
                 setSecond(true);
             }
             else if(selected=='pickleRick'){
+                setThird(true);
+            }
+            if(selected=='bender'){
+                setfirst(true);
+            }
+            else if(selected=='wall-e'){
+                setSecond(true);
+            }
+            else if(selected=='r2d2'){
                 setThird(true);
             }
         }
@@ -178,6 +187,7 @@ export default function Common(props) {
                 timeSec=formatTime();
             }
     },[]);
+    
 
 return (
     <div>
@@ -272,8 +282,8 @@ return (
         : null}
     </div>
     <div style={{position:'relative',width:'25%'}}>
-    <div className='side-div' style={{height:'100vh'}}>
-        <h2 style={{padding:'1em'}}>Characters to Look For</h2>
+    <div className='side-div' style={{height:'500px'}}>
+        <h2 style={{padding:'5px'}}>Characters to Look For</h2>
         <div className={first ? 'char1-after' : 'char1-before'}>
             <img src={props.char1Src} style={{width:'70%'}}/>
             <h3 style={{marginTop:'2.3em'}}>{props.name1}</h3>
@@ -289,7 +299,7 @@ return (
     </div>
     </div>
     </div>
-    {charsToFInd>=0 ? null: <BasicModal sec={timeSec} first={props.first} second={props.second} third={props.third}/>}
+    {charsToFInd>=0 ? null: <BasicModal sec={timeSec} first={props.first} second={props.second} third={props.third} fourth={props.fourth} level={props.level}/>}
     </div>
 );
 }

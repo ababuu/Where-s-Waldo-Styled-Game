@@ -1,10 +1,11 @@
 import * as React from 'react';
 import ButtonAppBar from './components/AppBar';
-export default function LevelTwoBoard() {
+import { getDatabase, ref, query, orderByChild } from "firebase/database";
 
+export default function LevelTwoBoard() {
 return (
     <div>
-        <ButtonAppBar runtimer={false} showHomeButton={true}/>
+        <ButtonAppBar runtimer={false} showHomeButton={true} showLeaderBoard={true}/>
         Board 2
     </div>
 );

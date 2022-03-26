@@ -4,7 +4,7 @@ export default function LevelFourBoard() {
 
 return (
     <div>
-        <ButtonAppBar runtimer={false} showHomeButton={true}/>
+        <ButtonAppBar runtimer={false} showHomeButton={true} showLeaderBoard={true}/>
         Board 4
     </div>
 );
