@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {ref, query, orderByChild, onValue} from "firebase/database";
+
 import Db from './firebase.config';
 import Spinner from './Spinner';
 
@@ -32,36 +32,13 @@ border: 0,
 }));
 
 export default function CustomizedTables(props) {
-    const [delay, setDelay] = React.useState(true);
-    const [data, setData] = React.useState([]);
-
-    const readuserData=()=>{
-        const dbRef = query(ref(Db, `players/${props.level}`),orderByChild('score'));
-        onValue(dbRef, (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                const childKey = childSnapshot.key;
-                const childData = childSnapshot.val();
-                setData(oldArray => [...oldArray, childData]);
-            });
-        }, {
-            onlyOnce: true
-        });
-        console.log(data);
-    }
-    
-    React.useEffect(() => {
-        if(data==null){
-            setInterval(() => {
-                setDelay(false);
-            }, 3000);}
-        readuserData();
-    }, [])
+   console.log(props.data)
     
 
 return (
 <TableContainer component={Paper} sx={{height: 500  }}>
-    {delay && <Spinner/>}
-    {!delay && <Table sx={{ minWidth: 150,height: "max-content" }} aria-label="customized table">
+    
+    <Table sx={{ minWidth: 150,height: "max-content" }} aria-label="customized table">
     <TableHead>
         <TableRow>
         <StyledTableCell>Name</StyledTableCell>
@@ -69,7 +46,7 @@ return (
         </TableRow>
     </TableHead>
     <TableBody>
-        {data.map((row) => (
+        {props.data.map((row) => (
         <StyledTableRow key={row.username}>
             <StyledTableCell component="th" scope="row">
             {row.username}
@@ -78,7 +55,7 @@ return (
         </StyledTableRow>
         ))}
     </TableBody>
-    </Table>}
+    </Table>
 </TableContainer>
 );
 }

@@ -282,8 +282,8 @@ return (
         : null}
     </div>
     <div style={{position:'relative',width:'25%'}}>
-    <div className='side-div' style={{height:'500px'}}>
-        <h2 style={{padding:'5px'}}>Characters to Look For</h2>
+    <div className='side-div' style={{height:'600px',marginBottom:'5px'}}>
+        <h2 style={{padding:'8px'}}>Characters to Look For</h2>
         <div className={first ? 'char1-after' : 'char1-before'}>
             <img src={props.char1Src} style={{width:'70%'}}/>
             <h3 style={{marginTop:'2.3em'}}>{props.name1}</h3>

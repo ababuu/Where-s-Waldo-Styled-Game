@@ -35,7 +35,7 @@ return (
     >
         <Box sx={style}>
             <h3>{props.level} level leader board</h3>
-            <Table level={props.level}/>
+            <Table data={props.data}/>
             <Button style={{marginTop:'2em'}} variant="outlined" onClick={handleClick}>Home</Button>
         </Box>
     </Modal>

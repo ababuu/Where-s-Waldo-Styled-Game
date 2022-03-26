@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Spinner from './Spinner';
 import Db from './firebase.config';
-import {  ref, set ,push} from "firebase/database";
+import {  ref, set ,push ,query, orderByChild, onValue} from "firebase/database";
 import Modal2 from './Modal2';
 
 
@@ -26,7 +26,10 @@ export default function BasicModal(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [delay, setDelay] = React.useState(true);
+    const [delay2, setDelay2] = React.useState(true);
     const [name, setName] = React.useState('');
+    const [data, setData] = React.useState([]);
+    const [runSecond,setRunSecond]= React.useState(false);
 
 function writeUserData() {
     if(name==''){
@@ -39,24 +42,38 @@ function writeUserData() {
         score: props.sec
     });
 }
-
+const readuserData=()=>{
+    const dbRef = query(ref(Db, `players/${props.level}`),orderByChild('score'));
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            console.log(childData)
+            setData(oldArray => [...oldArray, childData]);
+        });
+    }, {
+        onlyOnce: true
+    });
+    console.log(data);
+}
 const handleClick=()=>{
     writeUserData();
+    readuserData();
     setDelay(true);
+    setRunSecond(true);
 }
 
 React.useEffect(() => {
-    
     if(delay==true){
         setInterval(() => {
             setDelay(false);
-        }, 3000);
+        }, 3500);
     }
 }, [])
 
 return (
     <div>
-        {delay && <Spinner spinnerText={'You did it in...'}/>}
+        {delay && !runSecond && <Spinner spinnerText={'You did it in...'}/>}
         {!delay && <Modal
         open={open}
         onClose={handleClose}
@@ -72,11 +89,11 @@ return (
         </Box>
     </Modal>}
     
-    {delay && <Spinner spinnerText={'Loading Leader Board...'}/>}
-    {!delay && props.first && <Modal2 level={props.level}/>}
-    {!delay && props.second && <Modal2 level={props.level}/>}
-    {!delay && props.third && <Modal2 level={props.level}/>}
-    {!delay && props.fourth && <Modal2 level={props.level}/>}
+    {delay && runSecond && <Spinner spinnerText={'Loading Leader Board...'}/>}
+    {!delay && runSecond && props.first && <Modal2 level={props.level} data={data}/>}
+    {!delay && runSecond && props.second && <Modal2 level={props.level} data={data}/>}
+    {!delay && runSecond && props.third && <Modal2 level={props.level} data={data}/>}
+    {!delay && runSecond && props.fourth && <Modal2 level={props.level} data={data}/>}
     </div>
 );
 }
