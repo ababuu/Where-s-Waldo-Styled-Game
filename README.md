@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Find the character
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a game based on the game ["where's Waldo"](https://en.wikipedia.org/wiki/Where%27s_Wally%3F#:~:text=Where's%20Wally%3F%20(called%20Where's%20Waldo,things%20at%20a%20given%20location.)
 
 ## Available Scripts
 
