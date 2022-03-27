@@ -1,4 +1,4 @@
-# Find the character
+# General Info
 
 This project is a game based on the game 
 [where is Waldo](https://waldo.fandom.com/wiki/Where%27s_Waldo%3F).
