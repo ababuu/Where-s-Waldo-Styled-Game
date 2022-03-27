@@ -1,7 +1,7 @@
 # Find the character
 
 This project is a game based on the game 
-[where is Waldo](https://facebook.github.io/create-react-app/docs/deployment)
+[where is Waldo](https://waldo.fandom.com/wiki/Where%27s_Waldo%3F)
 
 ## Available Scripts
 
