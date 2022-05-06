@@ -1,4 +1,4 @@
-# General Info
+# where-s_waldo_-a_photo_tagging_app-
 
 This project is a game based on the game 
 [where is Waldo](https://waldo.fandom.com/wiki/Where%27s_Waldo%3F).
